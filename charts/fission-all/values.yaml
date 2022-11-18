@@ -31,7 +31,7 @@ imageTag: v1.17.0
 ##
 pullPolicy: IfNotPresent
 
-## imageppullsecrets 
+## imageppullsecrets
 imagePullSecrets: []
 
 ## priorityClassName represents the priority class name to use for Fission components.
@@ -131,7 +131,7 @@ executor:
   ## This is applicable to Pool Manager executor type only.
   ##
   podReadyTimeout: 300s
-  
+
   ## Pod resources as:
   ##  resources:
   ##    limits:
@@ -172,6 +172,9 @@ router:
   ## deployAsDaemonSet decides whether to deploy router as a DaemonSet or a Deployment.
   ##
   deployAsDaemonSet: false
+  ## replicas decides how many router pods to deploy. Only used when deployAsDaemonSet is false.
+  ##
+  replicas: 1
   ## svcAddressMaxRetries is the max times for router to retry with a specific function service address
   ##
   svcAddressMaxRetries: 5
@@ -273,7 +276,7 @@ router:
     runAsGroup: 10001
 
 ## The builder manager watches the package & environments CRD changes and manages the builds of function source code.
-## 
+##
 buildermgr:
   ## Pod resources as:
   ##  resources:
@@ -467,7 +470,7 @@ serviceMonitor:
   #  key: "value"
 
 # The following components expose Prometheus metrics and have podmonitors in this chart (disabled by default)
-# 
+#
 podMonitor:
   enabled: false
   ##namespace in which you want to deploy podmonitor
@@ -503,7 +506,7 @@ persistence:
   #   region: <awsRegion>
   ## For Minio and other s3 compatible storage systems set endPoint property
   #   endPoint: <s3StorageUrl>
-  
+
   ## A manually managed Persistent Volume Claim name
   ## Requires persistence.enabled: true
   ## If defined, PVC must be created manually before volume will be bound
@@ -657,7 +660,7 @@ authentication:
   ## in seconds
   ## default '120'
   ##
-  jwtExpiryTime: 
+  jwtExpiryTime:
   ## jwtIssuer is the issuer of JWT
   ## default 'fission'
   ##
@@ -758,15 +761,13 @@ pprof:
 ## Enable runtimePodSpec and add spec to your poolmgr or newdeploy pods
 ##
 runtimePodSpec:
-
   ## Setting it false by default so that integration tests pass
   ##
   enabled: false
-  
+
   ## Checkout PodSpec in https://fission.io/docs/reference/crd-reference/#runtime
   ##
   podSpec:
-
     ## Default podspec to improve security of the pods
     ##
     securityContext:
@@ -778,7 +779,6 @@ runtimePodSpec:
 ## Enable builderPodSpec and add spec to your env builder pods
 ##
 builderPodSpec:
-
   ## Setting it false by default so that integration tests pass
   ##
   enabled: false
@@ -786,7 +786,6 @@ builderPodSpec:
   ## Checkout PodSpec in https://fission.io/docs/reference/crd-reference/#builder
   ##
   podSpec:
-
     ## Default podspec to improve security of the pods
     ##
     securityContext:
@@ -794,7 +793,6 @@ builderPodSpec:
       runAsGroup: 10001
       runAsNonRoot: true
       runAsUser: 10001
-
 
 ## Enable Grafana Dashboard configmaps for auto dashboard provisioning
 ## If you use kube-prometheus stack for monitoring, these will get imported into grafana
